@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% set titulo = "Página de Produto" %}
+
+
+{% block conteudo %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow" style="width: 400px;">
+        <div class="card-body">
+            <h3 class="text-center mb-4">Olá, usuário!</h3>
+            <form>
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Seu Nome</label>
+                    <input type="text" 
+                    class="form-control" 
+                    id="nome" 
+                    placeholder="Pedrinho matador" 
+                    required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" 
+                    id="email" 
+                    placeholder="Entre com seu endereço de email"
+                    required>
+                </div>
+                <div class="mb-3">
+                    <label for="categoria" class="form-label">Categorias</label>
+                    <select class="form-select" id="categoria" required>
+                        <option value="" disabled selected>Selecione sua Categoria</option>
+                        <option value="Profissional da Saúde">Profissional da Saúde</option>
+                        <option value="Pobre">Pobre</option>
+                        <option value="CEO da BET">CEO da BET</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Messagem</label>
+                    <textarea class="form-control" id="message" rows="3" placeholder="Tipe vossa mensagem aki..."
+                        required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">EnVIADAER</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
