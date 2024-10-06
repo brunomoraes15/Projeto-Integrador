@@ -1,0 +1,191 @@
+html {
+    background: radial-gradient(circle at bottom right, #35b897 20%, #47f9cc 10%, #003e6f 60%, #003054 80%);
+    height: 100vh;
+    /* clip-path: polygon(0 0, 100% 0, 100% 80%, 0 80%);  */
+
+    background-size: 100vw 160vh;
+
+}
+
+body {
+    flex-wrap: nowrap;
+    /*bloqueia o tamanho dos itens para além do container*/
+}
+
+header {
+    background-color: black;
+    color: aliceblue;
+    opacity: 0.8;
+    position: absolute;
+    width: 100vw;
+
+}
+
+#logo {
+    max-width: 3%;
+    max-height: 3%;
+    display: inline;
+}
+
+#logo1 {
+    display: inline;
+    position: relative;
+    max-width: 2%;
+    max-height: 2%;
+    left: 94%;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+
+}
+
+#bloco {
+    width: 25vw;
+    height: 32vw;
+    display: flex;
+    flex-grow: 1;
+    position: absolute;
+    top: 17vh;
+}
+
+#bloco a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Elementos com atributos generalizado */
+#elemento1,
+#elemento2,
+#elemento4 {
+    border-radius: 25px;
+}
+
+#elemento2,
+#elemento3,
+#elemento4,
+#elemento5 {
+    background-color: #335c81;
+}
+
+/* Elemento de fundo com o link e a str "Registrar" */
+#elemento1 {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: #274060;
+    position: relative;
+
+}
+
+#elemento1:hover {
+    background-color: #284366;
+}
+
+/* Elemento onde vai a str "Entrar" */
+#elemento2 {
+    width: 54%;
+    height: 50%;
+    z-index: 1;
+    position: absolute;
+    bottom: 51%;
+
+}
+
+/* Elemento "main" onde vai a logo2 e o formulário */
+#elemento3 {
+    width: 25vw;
+    height: 75%;
+    z-index: 2;
+    position: absolute;
+    margin-top: 17%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Elemento footer */
+#elemento4 {
+    width: 25vw;
+    height: 50%;
+    z-index: 1;
+    position: absolute;
+    margin-top: 64%;
+
+}
+
+/* Poligono da "Rampa" */
+#elemento5 {
+    width: 90%;
+    height: 90%;
+    clip-path: polygon(30% 20%, 70% 20%, 70% 20%, 50% 20%, 50% 19%, 43% 19%, 36% 16%, 34% 13%, 32% 10%, 30% 2%);
+    position: absolute;
+    left: 71%;
+    top: 11.5%;
+
+}
+
+#logo2{
+    width: 25%;
+    height: auto;
+    position: relative;
+    left: 39%;
+    bottom: 4%;
+    opacity: 0.2;
+}
+.form-container{
+    width: 80%;
+    margin-top: 8%;
+}
+.form-label{
+    font-size:0.9em;
+    color: black;
+}
+.form-control{
+    opacity: 0.2;
+}
+#ESenha{
+    display: flex;
+    margin-top: 10%;
+    margin-left: 28%;
+    color: inherit; 
+    text-decoration: none;
+    color: black;
+}
+#ESenha:hover{
+    color: #212121;
+}
+footer {
+    background-color: black;
+    color: aliceblue;
+    opacity: 0.8;
+    width: 100vw;
+    height: 10vh;
+    /* margin-top: 44%; */
+    line-height: 10vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#CopySus {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* size: 10px; */
+}
+
+#Entrar {
+    color: azure;
+    display: flex;
+    position: absolute;
+    left: 37%;
+    margin-top: 10%;
+}
+
+#Registrar {
+    color: azure;
+    display: flex;
+    position: absolute;
+    left: 68%;
+    margin-top: 5%;
+}
