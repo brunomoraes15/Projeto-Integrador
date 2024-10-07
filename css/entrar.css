@@ -67,7 +67,7 @@ main {
 #elemento3,
 #elemento4,
 #elemento5 {
-    background-color:#274060;
+    background-color: #335c81;
 }
 
 /* Elemento de fundo com o link e a str "Registrar" */
@@ -75,13 +75,13 @@ main {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-color: #335c81 ;
+    background-color: #274060;
     position: relative;
 
 }
 
 #elemento1:hover {
-    background-color: #2e5a81;
+    background-color: #284366;
 }
 
 /* Elemento onde vai a str "Entrar" */
@@ -91,8 +91,6 @@ main {
     z-index: 1;
     position: absolute;
     bottom: 51%;
-    left: 46%;
-    
 
 }
 
@@ -123,11 +121,9 @@ main {
     height: 90%;
     clip-path: polygon(30% 20%, 70% 20%, 70% 20%, 50% 20%, 50% 19%, 43% 19%, 36% 16%, 34% 13%, 32% 10%, 30% 2%);
     position: absolute;
-    right: 22%;
-    /* top: 11.5%; */
-    bottom:41%;
-    transform: rotate(-90deg);
-    
+    left: 71%;
+    top: 11.5%;
+
 }
 
 #logo2{
@@ -172,25 +168,24 @@ footer {
     bottom: 0;
     left: 0;
 }
-/*Texto */
+
 #CopySus {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     /* size: 10px; */
-}
-
-#Registrar {
-    color: azure;
-    display: flex;
-    position: absolute;
-    left: 33%;
-    margin-top: 10%;
 }
 
 #Entrar {
     color: azure;
     display: flex;
     position: absolute;
-    left: 15%;
+    left: 37%;
+    margin-top: 10%;
+}
+
+#Registrar {
+    color: azure;
+    display: flex;
+    position: absolute;
+    left: 68%;
     margin-top: 5%;
- 
 }
