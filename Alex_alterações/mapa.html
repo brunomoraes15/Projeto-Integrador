@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa com Geolocalização e Hospitais Próximos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Inicializando o mapa
+        var map = L.map('map').setView([0, 0], 13); // Temporariamente [0, 0] até que a geolocalização seja obtida
+
+        // Camada do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Função de sucesso para obter localização
+        function onLocationFound(e) {
+            var userLocation = e.latlng;
+            map.setView(userLocation, 13); // Centralizar o mapa na localização do usuário
+
+            // Adicionar marcador na localização do usuário
+            var marker = L.marker(userLocation).addTo(map)
+                .bindPopup('Você está aqui.')
+                .openPopup();
+
+            // Obter hospitais e postos de saúde próximos usando a Overpass API
+            var overpassUrl = https://overpass-api.de/api/interpreter?data=[out:json];node[amenity=hospital](around:15000,${userLocation.lat},${userLocation.lng});out;node[amenity=clinic](around:15000,${userLocation.lat},${userLocation.lng});out;;
+
+            fetch(overpassUrl)
+                .then(response => response.json())
+                .then(data => {
+                    data.elements.forEach(function(element) {
+                        var hospitalLocation = [element.lat, element.lon];
+                        var hospitalName = element.tags.name || "Hospital/Clínica sem nome"; // Nome do hospital ou clínica
+
+                        // Adicionar marcador para cada hospital ou clínica
+                        L.marker(hospitalLocation).addTo(map)
+                            .bindPopup(<b>${hospitalName}</b>);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao obter os hospitais:', error);
+                });
+        }
+
+        // Função de erro caso a geolocalização falhe
+        function onLocationError(e) {
+            alert('Erro ao obter sua localização: ' + e.message);
+        }
+
+        // Solicitar localização ao navegador
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+
+        // Solicita a localização do usuário
+        map.locate({ setView: true, maxZoom: 16 });
+    </script>
+</body>
+</html>
