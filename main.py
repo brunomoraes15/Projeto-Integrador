@@ -15,7 +15,7 @@ def get_root(request: Request):
 def get_entrar(request: Request):
     return template.TemplateResponse("entrar.html", {"request": request})
 
-"""
+""
 @app.post("/post_cadastro")
 def post_cadastro(
     nome:       str = Form(...), 
@@ -24,6 +24,6 @@ def post_cadastro(
     senha:    str = Form(...), 
     categoria:  str = Form(...)):
     return RedirectResponse(url="/", status_code=303)
-"""
+""
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True)
