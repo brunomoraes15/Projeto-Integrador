@@ -9,7 +9,7 @@ template = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def get_root(request: Request):
-    return template.TemplateResponse("cadastro.html", {"request": request})
+    return template.TemplateResponse("index.html", {"request": request})
 
 @app.get("/cadastro")
 def get_cadastro(request: Request):
