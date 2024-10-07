@@ -178,7 +178,7 @@ footer {
     /* size: 10px; */
 }
 
-#Entrar {
+#Registrar {
     color: azure;
     display: flex;
     position: absolute;
@@ -186,7 +186,7 @@ footer {
     margin-top: 10%;
 }
 
-#Registrar {
+#Entrar {
     color: azure;
     display: flex;
     position: absolute;
