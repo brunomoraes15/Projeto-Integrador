@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Mapa com Geolocalização e Hospitais Próximos</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Locais de Saúde Próximos</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         #map {
@@ -17,54 +17,77 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         // Inicializando o mapa
-        var map = L.map('map').setView([0, 0], 13); // Temporariamente [0, 0] até que a geolocalização seja obtida
+        var map = L.map('map').setView([0, 0], 13);
 
-        // Camada do OpenStreetMap
+        // Adicionando camada do OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Função de sucesso para obter localização
+        // Função para exibir a localização do usuário
         function onLocationFound(e) {
             var userLocation = e.latlng;
-            map.setView(userLocation, 13); // Centralizar o mapa na localização do usuário
+            map.setView(userLocation, 13);
 
-            // Adicionar marcador na localização do usuário
-            var marker = L.marker(userLocation).addTo(map)
-                .bindPopup('Você está aqui.')
+            // Adicionando um marcador para o usuário
+            L.marker(userLocation).addTo(map)
+                .bindPopup('Você está aqui!')
                 .openPopup();
 
-            // Obter hospitais e postos de saúde próximos usando a Overpass API
-            var overpassUrl = https://overpass-api.de/api/interpreter?data=[out:json];node[amenity=hospital](around:15000,${userLocation.lat},${userLocation.lng});out;node[amenity=clinic](around:15000,${userLocation.lat},${userLocation.lng});out;;
-
-            fetch(overpassUrl)
-                .then(response => response.json())
-                .then(data => {
-                    data.elements.forEach(function(element) {
-                        var hospitalLocation = [element.lat, element.lon];
-                        var hospitalName = element.tags.name || "Hospital/Clínica sem nome"; // Nome do hospital ou clínica
-
-                        // Adicionar marcador para cada hospital ou clínica
-                        L.marker(hospitalLocation).addTo(map)
-                            .bindPopup(<b>${hospitalName}</b>);
-                    });
-                })
-                .catch(error => {
-                    console.error('Erro ao obter os hospitais:', error);
-                });
+            // Buscar locais de saúde próximos com Overpass API
+            fetchHealthFacilities(userLocation.lat, userLocation.lng);
         }
 
-        // Função de erro caso a geolocalização falhe
+        // Função para exibir erro caso a geolocalização falhe
         function onLocationError(e) {
             alert('Erro ao obter sua localização: ' + e.message);
         }
 
-        // Solicitar localização ao navegador
+        // Solicitar geolocalização do usuário
+        map.locate({ setView: true, maxZoom: 10 });
+
         map.on('locationfound', onLocationFound);
         map.on('locationerror', onLocationError);
 
-        // Solicita a localização do usuário
-        map.locate({ setView: true, maxZoom: 16 });
+        // Função para buscar locais de saúde próximos usando a Overpass API
+        function fetchHealthFacilities(lat, lng) {
+            // Definir a consulta Overpass para encontrar hospitais e clínicas em um raio de 20km
+            var overpassQuery = `[out:json];
+                (
+                  node["amenity"="hospital"](around:20000, ${lat}, ${lng});
+                  node["amenity"="clinic"](around:20000, ${lat}, ${lng});
+                  node["amenity"="doctors"](around:20000, ${lat}, ${lng});
+                  node["amenity"="Health Center"](around:20000, ${lat}, ${lng});
+                  node["amenity"="pharmacy"](around:20000, ${lat}, ${lng});
+                );
+                out body;`;
+
+            // Fazer a requisição para a Overpass API
+            var overpassUrl = "https://overpass-api.de/api/interpreter?data=" + encodeURIComponent(overpassQuery);
+
+            fetch(overpassUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Verificar se há resultados e adicionar ao mapa
+                    if (data.elements.length > 0) {
+                        data.elements.forEach(function (element) {
+                            if (element.type === "node") {
+                                // Criar um marcador para cada local de saúde
+                                var healthFacility = L.marker([element.lat, element.lon]).addTo(map);
+
+                                // Exibir informações do local
+                                var popupContent = `<strong>${element.tags.name || "Local de saúde"}</strong><br>Amenidade: ${element.tags.amenity}`;
+                                healthFacility.bindPopup(popupContent);
+                            }
+                        });
+                    } else {
+                        alert('Nenhum local de saúde encontrado a até 20km de você.');
+                    }
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar locais de saúde:', err);
+                });
+        }
     </script>
 </body>
 </html>
