@@ -27,7 +27,7 @@
         // Função para exibir a localização do usuário
         function onLocationFound(e) {
             var userLocation = e.latlng;
-            map.setView(userLocation, 13);
+            map.setView(userLocation, 16);
 
             // Adicionando um marcador para o usuário
             L.marker(userLocation).addTo(map)
@@ -44,7 +44,7 @@
         }
 
         // Solicitar geolocalização do usuário
-        map.locate({ setView: true, maxZoom: 10 });
+        map.locate({ setView: true, maxZoom: 200 });
 
         map.on('locationfound', onLocationFound);
         map.on('locationerror', onLocationError);
