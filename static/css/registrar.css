@@ -10,6 +10,7 @@ html {
 body {
     flex-wrap: nowrap;
     /*bloqueia o tamanho dos itens para além do container*/
+
 }
 
 header {
@@ -19,6 +20,11 @@ header {
     position: absolute;
     width: 100vw;
 
+}
+
+.fonte-cor{
+
+    color: aliceblue;
 }
 
 #logo {
