@@ -1,3 +1,5 @@
+
+
 html {
     background: radial-gradient(circle at bottom right, #35b897 20%, #47f9cc 10%, #003e6f 60%, #003054 80%);
     height: 100vh;
@@ -144,6 +146,11 @@ main {
     bottom: 4%;
     opacity: 0.2;
 }
+/* .form-container, .form-label, .form-control{
+    min-width: 30px;
+    min-height: 20px;
+    max-height:30px ;
+} */
 .form-container{
     width: 80%;
     margin-top: 8%;

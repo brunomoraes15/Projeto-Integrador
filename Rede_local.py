@@ -7,8 +7,6 @@ iniciar esse arquivo python
 Colar "ngrok http 8000" no cmd e clicar no link com .app no final
 """
 
-
-
 import http.server
 import socketserver
 import socket
@@ -29,7 +27,7 @@ STATIC_DIRECTORY = "static"
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, directory=TEMPLATES_DIRECTORY, **kwargs)
 
     def do_GET(self):
         # Se o caminho solicitar arquivos do diretório static, altere o diretório de serviço
@@ -37,7 +35,10 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.directory = STATIC_DIRECTORY
             self.path = self.path[len("/static"):]  # Remover "/static" do caminho para localizar o arquivo corretamente
         else:
-            self.directory = TEMPLATES_DIRECTORY  # Caso contrário, sirva arquivos do diretório de templates
+            # Se o caminho não especificar um arquivo, serve a página principal ou a que for solicitada
+            self.directory = TEMPLATES_DIRECTORY
+            if self.path == "/":
+                self.path = "/index.html"  # Página padrão
         return super().do_GET()
 
 # Configurar o servidor para escutar em todos os IPs (0.0.0.0)
