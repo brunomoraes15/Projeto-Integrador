@@ -5,7 +5,7 @@ html {
     height: 100vh;
     /* clip-path: polygon(0 0, 100% 0, 100% 80%, 0 80%);  */
 
-    background-size: 100vw 160vh;
+    background-size: 150% 160vh;
 
 }
 
@@ -50,8 +50,9 @@ main {
 }
 
 #bloco {
-    width: 25vw;
-    height: 32vw;
+    
+    width: 25.4em;
+    height: 31rem;
     display: flex;
     flex-grow: 1;
     position: absolute;
@@ -68,7 +69,7 @@ main {
 #elemento1,
 #elemento2,
 #elemento4 {
-    border-radius: 25px;
+    border-radius: 3%;
 }
 
 #elemento2,
@@ -94,7 +95,7 @@ main {
 
 /* Elemento onde vai a str "Entrar" */
 #elemento2 {
-    width: 54%;
+    width: 13.75em;
     height: 50%;
     z-index: 1;
     position: absolute;
@@ -106,8 +107,8 @@ main {
 
 /* Elemento "main" onde vai a logo2 e o formulário */
 #elemento3 {
-    width: 25vw;
-    height: 75%;
+    width: 25.4em;
+    height: 26em;
     z-index: 2;
     position: absolute;
     margin-top: 17%;
@@ -117,7 +118,7 @@ main {
 
 /* Elemento footer */
 #elemento4 {
-    width: 25vw;
+    width: 25.4em;
     height: 50%;
     z-index: 1;
     position: absolute;
