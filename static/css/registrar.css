@@ -15,12 +15,13 @@ body {
 
 }
 
-header {
+#header {
     background-color: black;
     color: aliceblue;
-    opacity: 0.8;
-    position: absolute;
+    opacity: 0.2;
+    position: fixed;
     width: 100vw;
+    height: 9.6%;
 
 }
 
@@ -30,6 +31,9 @@ header {
 }
 
 #logo {
+    position:fixed;
+    left: 0.76em;
+    top: 0.54em; /* Alinha verticalmente ao centro */
     max-width: 3%;
     max-height: 3%;
     display: inline;
@@ -132,7 +136,7 @@ main {
     height: 90%;
     clip-path: polygon(30% 20%, 70% 20%, 70% 20%, 50% 20%, 50% 19%, 43% 19%, 36% 16%, 34% 13%, 32% 10%, 30% 2%);
     position: absolute;
-    right: 22%;
+    right: 22.6%;
     /* top: 11.5%; */
     bottom:41%;
     transform: rotate(-90deg);
@@ -179,7 +183,7 @@ footer {
     color: aliceblue;
     opacity: 0.8;
     width: 100vw;
-    height: 10vh;
+    height: 7vh;
     /* margin-top: 44%; */
     line-height: 10vh;
     position: fixed;
@@ -188,8 +192,12 @@ footer {
 }
 /*Texto */
 #CopySus {
+    position: relative;
+    color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     /* size: 10px; */
+    bottom: 0.69rem;
+    
 }
 
 #Registrar {
@@ -208,3 +216,12 @@ footer {
     margin-top: 5%;
  
 }
+#hbotton {
+    position: absolute;
+    width: 5em;
+    height: auto;
+    left: 93%; /* Posiciona o botão na extrema direita */
+    top: 2.1em; /* Alinha verticalmente ao centro */
+    transform: translateY(-50%); /* Ajusta a posição vertical para centralizar perfeitamente */
+    
+  }

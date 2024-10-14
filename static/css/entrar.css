@@ -12,16 +12,24 @@ body {
     /*bloqueia o tamanho dos itens para além do container*/
 }
 
-header {
+#header {
     background-color: black;
     color: aliceblue;
-    opacity: 0.8;
-    position: absolute;
+    opacity: 0.2;
+    position: fixed;
     width: 100vw;
+    height: 9.6%;
 
+}
+.fonte-cor{
+
+    color: aliceblue;
 }
 
 #logo {
+    position:fixed;
+    left: 0.76em;
+    top: 0.54em; /* Alinha verticalmente ao centro */
     max-width: 3%;
     max-height: 3%;
     display: inline;
@@ -126,6 +134,12 @@ main {
     top: 12.3%;
 
 }
+#logo {
+    position: absolute;
+    max-width: 3%;
+    max-height: 3%;
+    display: inline;
+}
 
 #logo2{
     width: 25%;
@@ -162,7 +176,7 @@ footer {
     color: aliceblue;
     opacity: 0.8;
     width: 100vw;
-    height: 10vh;
+    height: 7vh;
     /* margin-top: 44%; */
     line-height: 10vh;
     position: fixed;
@@ -171,8 +185,11 @@ footer {
 }
 
 #CopySus {
+    position: relative;
+    color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     /* size: 10px; */
+    bottom: 0.69rem;
 }
 
 #Entrar {
@@ -190,3 +207,12 @@ footer {
     left: 68%;
     margin-top: 5%;
 }
+#hbotton {
+    position: absolute;
+    width: 6%;
+    height: auto;
+    left: 93%; /* Posiciona o botão na extrema direita */
+    top: 2.1em; /* Alinha verticalmente ao centro */
+    transform: translateY(-50%); /* Ajusta a posição vertical para centralizar perfeitamente */
+    
+  }
