@@ -40,22 +40,18 @@ def post_registrar(
     email: str = Form(...),
     senha: str = Form(...)
 ):
-    user = Usuario(
+    usuario = Usuario(
         email=email,
         senha=senha
     )
     
-    validador = bd.inserir_usuario_registro(user)
-    if validador:
-        return RedirectResponse(url="/registrar_recebido", status_code=303)
-    else:
-        return RedirectResponse(url="/registrar", status_code=303)
+    bd.inserir_usuario_registro(usuario)
+    return RedirectResponse(url="/registrar_recebido", status_code=302) 
 
 
 @app.get("/registrar_recebido")
 def post_registrar_recebido(request: Request):
     return templates.TemplateResponse("registrar_recebido.html", {"request": request})
-
 
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True)

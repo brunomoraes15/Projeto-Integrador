@@ -19,12 +19,12 @@
                 >
             </a>
             <nav class="navbar navbar-expand-lg bg-navbar" id="header"></nav>
-            <a class="btn btn-primary rounded-pill" href="index.html" id="hbotton">Home</a>
+            <a class="btn btn-primary rounded-pill" href="/" id="hbotton">Home</a>
         </div>
     </header>
     <main id="container">
         <div id="bloco">
-            <a href="entrar.html">
+            <a href="entrar">
                 <div id="elemento1">
                     <p id="Entrar">Entrar</p>
                 </div>
@@ -36,16 +36,18 @@
             <div id="elemento3">
                 <div class="form-container">
                     <img src="/static/img/perfil.png" id="logo2">
-                    <form method="post" action="registrar_recebido">
+                    <form method="post" action="/post_registrar">
                         <div class="mb-3">
                             <center>
-                                <label for="email" class="form-label ">Email</label>
+                                <label for="email" class="form-label">Email</label>
                             </center>
                             <input
                                 type="email"
                                 class="form-control"
                                 id="email"
+                                name="email"
                                 placeholder="email@exemplo.com"
+                                required
                             >
                         </div>
                         <div class="mb-3">
@@ -56,20 +58,18 @@
                                 type="password"
                                 class="form-control"
                                 id="senha"
+                                name="senha"
                                 placeholder="Sua senha"
+                                required
                             >
                         </div>
-                        <!-- <div class="form-check mb-3">
-                                <input type="checkbox" class="form-check-input" id="lembrar">
-                                <label class="form-check-label" for="lembrar">Lembrar de mim</label>
-                            </div> -->
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary w-50">Entrar</button>
+                            <button type="submit" class="btn btn-primary w-50">Registrar</button>
                         </div>
                         <a href="pagina_recuperar_Senha" id="ESenha">
                             <p>Esqueci a senha</p>
                         </a>
-                    </form>
+                    </form>                    
                 </div>
             </div>
             <div id="elemento4"></div>

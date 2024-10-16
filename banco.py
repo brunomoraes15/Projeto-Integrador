@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from typing import Optional
 from queries import *
 
-# Database configuration
-db_user = 'postgres'  # Renamed to avoid conflict with Usuario class instance
+
+db_user = 'postgres'
 password = 'bd'
 host = 'localhost'
-port = '5432'  # Correcting port to default
+port = '5432'  
 dbname = "SusNet"
 
 @dataclass
