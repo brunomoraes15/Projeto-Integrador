@@ -3,13 +3,24 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import uvicorn
-from banco import *
-from config import *
+from banco import *  
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates") 
+templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.on_event("startup")
+def inicializar():
+    global bd
+    bd = BancoDeDados(
+        host=host,
+        dbname=dbname,
+        user=db_user,
+        password=password,
+        port=port
+    )
+    bd.criar_banco()
 
 @app.get("/")
 def get_root(request: Request):
@@ -20,26 +31,28 @@ def get_entrar(request: Request):
     return templates.TemplateResponse("entrar.html", {"request": request})
 
 @app.get("/registrar")
-def get_registrar(request: Request): 
+def get_registrar(request: Request):
     return templates.TemplateResponse("registrar.html", {"request": request})
 
 @app.post("/post_registrar")
-def registrar_usuario(
+def post_registrar(
     request: Request,
-    email: str = Form(...), 
-    senha: str = Form(...)):
-
-    bd = Banco_de_Dados(
-        host=host,
-        dbname=dbname,
-        user=user,
-        password=password,
-        port=port
+    email: str = Form(...),
+    senha: str = Form(...)
+):
+    user = Usuario(
+        email=email,
+        senha=senha
     )
-    bd.inserir_usuario(email, senha)
-    return RedirectResponse(url="/registrar_recebido", status_code=303) 
+    
+    validador = bd.inserir_usuario_registro(user)
+    if validador:
+        return RedirectResponse(url="/registrar_recebido", status_code=303)
+    else:
+        return RedirectResponse(url="/registrar", status_code=303)
 
-@app.post("/registrar_recebido")
+
+@app.get("/registrar_recebido")
 def post_registrar_recebido(request: Request):
     return templates.TemplateResponse("registrar_recebido.html", {"request": request})
 
