@@ -65,11 +65,22 @@ class BancoDeDados:
             self.conectar()
             self.cursor.execute(SQL_INSERIR_REGISTRAR, (user.email, user.senha))
             self.conexao_banco.commit()
+            
         except Exception as inst:
             print(f'Erro ao inserir dados no banco de dados: {inst}')  
         finally:
             self.desconectar()
 
+    def verificar_usuario(self, email: str, senha: str):
+        try:
+            self.conectar()
+            self.cursor.execute(SQL_VERIFICAR_USUARIO, (email, senha))
+            return self.cursor.fetchone()  
+        except Exception:
+            return None
+        finally:
+            self.desconectar()
+    
     def drop_banco(self):
         try:
             self.conectar()
@@ -81,22 +92,23 @@ class BancoDeDados:
             self.desconectar()
 
 
-# Test with new credentials
-new_user = Usuario(
+
+'''new_user = Usuario(
     email="sabotagem@gmail",
-    nome="Sabotagem da Silva Junior"
+    senha="Sabotagem da Silva Junior"
 )
 
 bd = BancoDeDados(
     host=host,
     dbname=dbname,
-    user=db_user,  # Pass the correct database user
+    user=db_user, 
     password=password,
     port=port
 )
 
-# bd.drop_banco()
-# bd.criar_banco()
-# print(new_user)
-# print(new_user.email, new_user.nome)
-# bd.inserir_usuario_registro(new_user)
+bd.drop_banco()
+bd.criar_banco()
+print(new_user)
+print(new_user.email, new_user.senha)
+bd.inserir_usuario_registro(new_user)
+'''
