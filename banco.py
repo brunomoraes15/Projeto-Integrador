@@ -94,10 +94,9 @@ bd = BancoDeDados(
     password=password,
     port=port
 )
-'''
-bd.drop_banco()
-bd.criar_banco()
-print(new_user)
-print(new_user.email, new_user.nome)
-bd.inserir_usuario_registro(new_user)
-'''
+
+# bd.drop_banco()
+# bd.criar_banco()
+# print(new_user)
+# print(new_user.email, new_user.nome)
+# bd.inserir_usuario_registro(new_user)
