@@ -76,7 +76,7 @@
                                 var healthFacility = L.marker([element.lat, element.lon]).addTo(map);
 
                                 // Exibir informações do local
-                                var popupContent = `<strong>${element.tags.name || "Local de saúde"}</strong><br>Amenidade: ${element.tags.amenity}`;
+                                var popupContent = `<strong>${element.tags.name || "Local de saúde"}</strong><br>Descrição: ${element.tags.amenity}`;
                                 healthFacility.bindPopup(popupContent);
                             }
                         });
