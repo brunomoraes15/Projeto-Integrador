@@ -4,12 +4,21 @@ from typing import Optional
 from queries import *
 
 
+db_user='postgres.mrdtrwwuuygncapsfkix' 
+password =  '9CrUhzi!ey??8jF' 
+host='aws-0-sa-east-1.pooler.supabase.com' 
+port='6543' 
+dbname='postgres'
+
+"""
+# old shit
 db_user = 'postgres'
 password = 'bd'
 host = 'localhost'
 port = '5432'  
 dbname = "SusNet"
 
+"""
 @dataclass
 class Usuario:
     id:         Optional[int] = None
@@ -44,7 +53,6 @@ class BancoDeDados:
             print(f"Erro ao conectar no banco de dados: {inst}")
 
     def desconectar(self):
-        """Fecha a conexão com o banco de dados"""
         if self.cursor:
             self.cursor.close()
         if self.conexao_banco:

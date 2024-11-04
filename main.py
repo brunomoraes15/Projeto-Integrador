@@ -21,6 +21,7 @@ def inicializar():
         port=port
     )
     bd.criar_banco()
+    print('inciado')
 
 @app.get("/")
 def get_root(request: Request):

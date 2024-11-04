@@ -28,3 +28,13 @@ SQL_VERIFICAR_USUARIO = """
 "SELECT * FROM usuario
 WHERE email = %s AND senha = %s
 """
+ALTERAR_NOME = """
+UPDATE usuario
+SET nome = %s
+WHERE email = %s;
+"""
+
+DELETAR_USER = """
+DELETE FROM usuario
+WHERE email = (email);
+"""
