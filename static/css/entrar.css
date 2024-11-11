@@ -1,27 +1,38 @@
+
 html {
     background: radial-gradient(circle at bottom right, #35b897 20%, #47f9cc 10%, #003e6f 60%, #003054 80%);
     height: 100vh;
     /* clip-path: polygon(0 0, 100% 0, 100% 80%, 0 80%);  */
 
-    background-size: 100vw 160vh;
+    background-size: 150% 190vh;
 
 }
 
 body {
     flex-wrap: nowrap;
     /*bloqueia o tamanho dos itens para além do container*/
+
 }
 
-header {
+#header {
     background-color: black;
     color: aliceblue;
-    opacity: 0.8;
-    position: absolute;
+    opacity: 0.2;
+    position: fixed;
     width: 100vw;
+    height: 9.6%;
 
+}
+
+.fonte-cor{
+
+    color: aliceblue;
 }
 
 #logo {
+    position:fixed;
+    left: 0.76em;
+    top: 0.54em; /* Alinha verticalmente ao centro */
     max-width: 3%;
     max-height: 3%;
     display: inline;
@@ -42,12 +53,13 @@ main {
 }
 
 #bloco {
-    width: 25vw;
-    height: 32vw;
+    
+    width: 25.4em;
+    height: 31rem;
     display: flex;
     flex-grow: 1;
     position: absolute;
-    top: 17vh;
+    top: 5rem;
 }
 
 #bloco a {
@@ -60,7 +72,7 @@ main {
 #elemento1,
 #elemento2,
 #elemento4 {
-    border-radius: 25px;
+    border-radius: 3%;
 }
 
 #elemento2,
@@ -69,24 +81,21 @@ main {
 #elemento5 {
     background-color: #335c81;
 }
-
 /* Elemento de fundo com o link e a str "Registrar" */
 #elemento1 {
     width: 100%;
     height: 100%;
-    z-index: 0;
     background-color: #274060;
     position: relative;
-
+    margin-bottom: 15px; /* Espaço entre elementos */
 }
+
 
 #elemento1:hover {
-    background-color: #284366;
+    background-color: #2d425e;
 }
-
-/* Elemento onde vai a str "Entrar" */
 #elemento2 {
-    width: 54%;
+    width: 13.75em;
     height: 50%;
     z-index: 1;
     position: absolute;
@@ -96,8 +105,8 @@ main {
 
 /* Elemento "main" onde vai a logo2 e o formulário */
 #elemento3 {
-    width: 25vw;
-    height: 75%;
+    width: 25.4em;
+    height: 26em;
     z-index: 2;
     position: absolute;
     margin-top: 17%;
@@ -107,7 +116,7 @@ main {
 
 /* Elemento footer */
 #elemento4 {
-    width: 25vw;
+    width: 25.4em;
     height: 50%;
     z-index: 1;
     position: absolute;
@@ -121,9 +130,11 @@ main {
     height: 90%;
     clip-path: polygon(30% 20%, 70% 20%, 70% 20%, 50% 20%, 50% 19%, 43% 19%, 36% 16%, 34% 13%, 32% 10%, 30% 2%);
     position: absolute;
-    left: 71%;
-    top: 11.5%;
-
+    left: 72%;
+    /* top: 11.5%; */
+    top:12.5%;
+    /* transform: rotate(-90deg); */
+    
 }
 
 #logo2{
@@ -134,6 +145,11 @@ main {
     bottom: 4%;
     opacity: 0.2;
 }
+/* .form-container, .form-label, .form-control{
+    min-width: 30px;
+    min-height: 20px;
+    max-height:30px ;
+} */
 .form-container{
     width: 80%;
     margin-top: 8%;
@@ -148,7 +164,7 @@ main {
 #ESenha{
     display: flex;
     margin-top: 10%;
-    margin-left: 28%;
+    margin-left: 6.5rem;
     color: inherit; 
     text-decoration: none;
     color: black;
@@ -161,17 +177,21 @@ footer {
     color: aliceblue;
     opacity: 0.8;
     width: 100vw;
-    height: 10vh;
+    height: 7vh;
     /* margin-top: 44%; */
     line-height: 10vh;
     position: fixed;
     bottom: 0;
     left: 0;
 }
-
+/*Texto */
 #CopySus {
+    position: relative;
+    color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     /* size: 10px; */
+    bottom: 0.69rem;
+    
 }
 
 #Entrar {
@@ -189,3 +209,13 @@ footer {
     left: 68%;
     margin-top: 5%;
 }
+
+#hbotton {
+    position: absolute;
+    width: 5em;
+    height: auto;
+    left: 93%; /* Posiciona o botão na extrema direita */
+    top: 2.1em; /* Alinha verticalmente ao centro */
+    transform: translateY(-50%); /* Ajusta a posição vertical para centralizar perfeitamente */
+    
+  }

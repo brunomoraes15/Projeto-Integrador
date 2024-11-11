@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Locais de Saúde Próximos</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Inicializando o mapa
+        var map = L.map('map').setView([0, 0], 13);
+
+        // Adicionando a camada do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Função para exibir a localização do usuário
+        function onLocationFound(e) {
+            var userLocation = e.latlng;
+            map.setView(userLocation, 16);
+
+            // Adicionando um marcador para a localização do usuário
+            L.marker(userLocation).addTo(map)
+                .bindPopup('Você está aqui!')
+                .openPopup();
+
+            // Buscar locais de saúde próximos
+            fetchHealthFacilities(userLocation.lat, userLocation.lng);
+        }
+
+        // Função para exibir erro caso a geolocalização falhe
+        function onLocationError(e) {
+            alert('Erro ao obter sua localização: ' + e.message);
+        }
+
+        // Solicitar geolocalização do usuário
+        map.locate({ setView: true, maxZoom: 200 });
+
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+
+        // Função para buscar locais de saúde próximos
+        function fetchHealthFacilities(lat, lng) {
+            // Faz uma requisição GET para o backend
+            fetch(`/health-facilities?lat=${lat}&lng=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.elements && data.elements.length > 0) {
+                        data.elements.forEach(function (element) {
+                            if (element.type === "node") {
+                                // Criar um marcador para cada local de saúde
+                                var healthFacility = L.marker([element.lat, element.lon]).addTo(map);
+                                var popupContent = `<strong>${element.tags.name || "Local de saúde"}</strong><br>Amenidade: ${element.tags.amenity}`;
+                                healthFacility.bindPopup(popupContent);
+                            }
+                        });
+                    } else {
+                        alert('Nenhum local de saúde encontrado a até 20km de você.');
+                    }
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar locais de saúde:', err);
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,29 +1,12 @@
-from fastapi import FastAPI, Form, Request
-from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
-import uvicorn
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from banco import * 
+from starlette.middleware.sessions import SessionMiddleware
+from routes.public_router import router as public_router
 
+
+bd.criar_banco()
 app = FastAPI()
-template = Jinja2Templates(directory="templates")
-
-
-@app.get("/")
-def get_root(request: Request):
-    return template.TemplateResponse("registrar.html", {"request": request})
-
-@app.get("/entrar")
-def get_entrar(request: Request):
-    return template.TemplateResponse("entrar.html", {"request": request})
-
-""
-@app.post("/post_cadastro")
-def post_cadastro(
-    nome:       str = Form(...), 
-    user:      str = Form(...), 
-    email:  str = Form(...), 
-    senha:    str = Form(...), 
-    categoria:  str = Form(...)):
-    return RedirectResponse(url="/", status_code=303)
-""
-if __name__ == "__main__":
-    uvicorn.run("main:app", port=8000, reload=True)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.add_middleware(SessionMiddleware, secret_key="a4cc060da26e3251a72b73e241147adb7e050ac6b979911370744fb6ebbd16d46f420e480b83480f7242347f02688eda8712a7121c4611dc8743d17c607c7589")
+app.include_router(public_router)
