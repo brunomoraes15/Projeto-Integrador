@@ -10,6 +10,10 @@ templates = Jinja2Templates(directory="templates")
 def get_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@router.get("/indexlog")
+def get_root(request: Request):
+    return templates.TemplateResponse("indexlog.html", {"request": request})
+
 @router.get("/registrar")
 def get_registrar(request: Request):
     return templates.TemplateResponse("registrar.html", {"request": request})
@@ -55,7 +59,12 @@ def post_entrar(
 
 @router.get("/mapa")
 def get_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("mapa.html", {"request": request})
+
+@router.get("/agenda")
+def get_root(request: Request):
+    return templates.TemplateResponse("agenda.html", {"request": request})
+
 
 """from fastapi import APIRouter, Form, Request, Depends
 from fastapi.responses import RedirectResponse

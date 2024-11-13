@@ -36,39 +36,26 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary"
             style="background-color: #035d96 !important; color: white !important;">
             <div class="container-fluid">
-                <a href="/templates/mapa.html"><img src="/static/img/logoSUSNET.png" alt="Logo" width="40" height="40"></a>
+                <a href="/"><img src="/static/img/logoSUSNET.png" alt="Logo" width="40"
+                        height="40"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="color: white;">
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Link</a>
+                            <a class="nav-link" style="color: white;" aria-current="page" href="agenda" title="Faça Login primeiro">Agenda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Link</a>
+                            <a class="nav-link" style="color: white;" href="mapa" title="Faça Login primeiro">Instituições</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Link</a>
+                            <a class="nav-link" style="color: white;" href="#" title="Faça Login primeiro">Atendimento</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white"  href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Categorias
-                            </a>
-                            <ul class="dropdown-menu" style="background-color: #0367a6;">
-                                <li>
-                                    <a class="dropdown-item text-white" style="background-color: #cccccc00;" href="#">Teste</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-white" style="background-color: #cccccc00;" href="#">Teste2</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: white;" href="#" title="Faça Login primeiro">Documentos</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" onsubmit="searchFacilities(event)">
@@ -170,6 +157,7 @@
                     alert("Não foi possível carregar locais.");
                 });
         }
+
         function addLocationToList(name, type) {
             var locationsList = document.getElementById('locationsList');
             var locationItem = document.createElement('div');
