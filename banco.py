@@ -1,17 +1,22 @@
 from dataclasses import dataclass
 from typing import Optional
 import sqlite3
-from queries import *
+
+from sqlalchemy import Null
+from queries import *  # Certifique-se de que as queries estão importadas corretamente
+from utils.cript import *  # Certifique-se de que a função de criptografia está importada
 
 @dataclass
 class Usuario:
-    id:         Optional[int] = None
-    nome:       Optional[str] = None
-    email:      Optional[str] = None
-    senha:      Optional[str] = None
-    cpf:        Optional[str] = None
-    telefone:   Optional[int] = None
-    endereco:   Optional[str] = None
+    id: Optional[int] = None
+    nome: Optional[str] = None
+    data_nascimento: Optional[str] = None
+    email: Optional[str] = None
+    senha: Optional[str] = None
+    cpf: Optional[str] = None
+    telefone: Optional[int] = None
+    endereco: Optional[str] = None
+    tipo_usuario: Optional[str] = None
 
 class BancoDeDados:
     def __init__(self):
@@ -43,25 +48,37 @@ class BancoDeDados:
         finally:
             self.desconectar()
             
-    def inserir_usuario_registro(self, user: Usuario):
+    def cadastrar_usuario(self, user: Usuario):
         try:
             self.conectar()
-            self.cursor.execute(SQL_INSERIR_REGISTRAR, (user.email, user.senha))
+            self.cursor.execute(SQL_INSERIR_USUARIO, (
+            user.nome,
+            user.data_nascimento,
+            user.email,
+            user.cpf,
+            user.telefone,
+            user.endereco,
+            user.senha,
+            user.tipo_usuario
+        ))
             self.conexao_banco.commit()
         except Exception as inst:
             print(f'Erro ao inserir dados no banco de dados: {inst}')  
         finally:
             self.desconectar()
             
-    def verificar_usuario(self, email: str, senha: str):
+    def verificar_usuario(self, email: str, senha: str) -> bool:
         try:
             self.conectar()
             self.cursor.execute(SQL_VERIFICAR_USUARIO, (email, senha))
-            return self.cursor.fetchone()  
-        except Exception:
-            return None
+            resultado = self.cursor.fetchone()
+            return bool(resultado)  
+        except Exception as inst:
+            print(f"Erro ao verificar o usuário no banco de dados: {inst}")
+            return False
         finally:
             self.desconectar()
+
 
     def drop_banco(self):
         try:
@@ -72,13 +89,70 @@ class BancoDeDados:
             print(f'Erro ao dropar tabela no banco de dados: {inst}')  
         finally:
             self.desconectar()
+"""
+usuarios_para_teste = [
+    Usuario(
+        nome="Marjory Novato",
+        data_nascimento="13/06/2008",  # Corrigido: adicionado vírgula aqui
+        email="marjory@dominio.com",
+        senha=cript("senha123"),
+        cpf="12345678901",
+        telefone="31987654321",
+        endereco="Rua A, 123 - Bairro Exemplo, Cidade/UF",
+        tipo_usuario="cliente"
+    ),
+    Usuario(
+        nome="Carlos Souza",
+        data_nascimento="07/12/2003",
+        email="carlos@dominio.com",
+        senha=cript("senha456"),
+        cpf="98765432100",
+        telefone="31987651234",
+        endereco="Rua B, 456 - Bairro Outro, Cidade/UF",
+        tipo_usuario="admin"
+    ),
+    Usuario(
+        nome="admin",
+        data_nascimento=Null,
+        email="administrador@system",
+        senha=cript("admin"),
+        cpf=Null,
+        telefone=Null,
+        endereco=Null,
+        tipo_usuario="admin"
+    ),
+]
+adm = Usuario(
+        nome="admin",
+        data_nascimento=Null,
+        email="administrador@system",
+        senha=cript("admin"),
+        cpf=Null,
+        telefone=Null,
+        endereco=Null,
+        tipo_usuario="admin"
+    )
+# Criar uma instância de Usuario
+usuario = Usuario(
+    nome="Marjory Novato",
+    data_nascimento="2008-06-13",
+    email="marjory@dominio.com",
+    senha=cript("senha123"),  # Certifique-se de que a função cript() funciona corretamente
+    cpf="12345678901",
+    telefone=31987654321,
+    endereco="Rua A, 123 - Bairro Exemplo, Cidade/UF",
+    tipo_usuario="cliente"
+)
 
-
-# Instancia a classe BancoDeDados e cria a tabela
+# Criar uma instância do banco de dados
 bd = BancoDeDados()
-bd.criar_banco()
 
-# Teste de inserção de usuário
-novo_usuario = Usuario(email="exemplo@dominio.com", senha="senha123")
-print(f"Inserindo usuário: {novo_usuario.email}")
-bd.inserir_usuario_registro(novo_usuario)
+# Cadastrar o usuário no banco de dados
+bd.cadastrar_usuario(usuario)
+
+# Verificar se o usuário existe no banco de dados
+if bd.verificar_usuario(usuario.email, usuario.senha):
+    print("Usuário encontrado no banco de dados!")
+else:
+    print("Usuário não encontrado.")
+"""
