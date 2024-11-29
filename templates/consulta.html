@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block titulo %} Consulta Rápida {% endblock %}
+{% block conteudo %}
+
+
+<h2 class="titulo-centro">Consulta Rápida</h2>
+<div class="mb-3">
+    <label for="febre" class="form-label">1. Você apresentou febre nos últimos dias?</label>
+    <select class="form-select" id="febre" name="febre" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="dorCabeca" class="form-label">2. Você está sentindo dores de cabeça?</label>
+    <select class="form-select" id="dorCabeca" name="dorCabeca" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="fadiga" class="form-label">3. Você sente fadiga constante?</label>
+    <select class="form-select" id="fadiga" name="fadiga" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="faltaAr" class="form-label">4. Você tem dificuldade para respirar?</label>
+    <select class="form-select" id="faltaAr" name="faltaAr" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="palpitacoes" class="form-label">5. Você tem sentido palpitações?</label>
+    <select class="form-select" id="palpitacoes" name="palpitacoes" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="tontura" class="form-label">6. Você tem sentido tontura?</label>
+    <select class="form-select" id="tontura" name="tontura" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="perdaApetite" class="form-label">7. Você perdeu o apetite recentemente?</label>
+    <select class="form-select" id="perdaApetite" name="perdaApetite" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="nausea" class="form-label">8. Você tem sentido náusea?</label>
+    <select class="form-select" id="nausea" name="nausea" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="vomito" class="form-label">9. Você apresentou vômito recentemente?</label>
+    <select class="form-select" id="vomito" name="vomito" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="perdaPeso" class="form-label">10. Você perdeu peso sem explicação?</label>
+    <select class="form-select" id="perdaPeso" name="perdaPeso" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="dorAbdomen" class="form-label">11. Você está sentindo dores abdominais?</label>
+    <select class="form-select" id="dorAbdomen" name="dorAbdomen" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="tosse" class="form-label">12. Você tem tossido com frequência?</label>
+    <select class="form-select" id="tosse" name="tosse" required>
+        <option value="" selected>Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+</div>
+<div class="mb-3"> <label for="descricaoSintomas" class="form-label">13. Descrição Adicional dos
+        Sintomas</label> <textarea class="form-control" id="descricaoSintomas" name="descricaoSintomas" rows="4"
+        placeholder="Descreva seus sintomas aqui..."></textarea> </div>
+<div class="text-center">
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</div>
+<div>
+    <img src="espaco.png" alt="Esp" class="img-fluid">
+</div>
+</div>
+{% endblock %}
+
+Bruno, veja como por o JSON aqui
