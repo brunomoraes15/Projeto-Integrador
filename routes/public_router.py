@@ -1,28 +1,25 @@
-from datetime import date
+from datetime import date, datetime
+from mensagens import *
 from utils.cript import *
 from fastapi import APIRouter, Form, Request, Depends
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from banco import *  # Certifique-se de que `bd` está acessível
+from banco import * 
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 @router.get("/")
 def get_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    contexto = {"request": request, "index_ativo": "active"}
+    return templates.TemplateResponse("index.html", contexto)
 
-@router.get("/indexlog")
-def get_root(request: Request):
-    return templates.TemplateResponse("indexlog.html", {"request": request})
-
-@router.get("/registrar")
-def get_registrar(request: Request):
-    return templates.TemplateResponse("registrar.html", {"request": request})
-
-@router.get("/registrar_recebido")
-def post_registrar_recebido(request: Request):
-    return templates.TemplateResponse("registrar_recebido.html", {"request": request})
+@router.get("/sair")
+def get_sair(request: Request):
+    request.session.clear()
+    response = RedirectResponse("/", 303)
+    adicionar_mensagem_info(response, "Você não está mais autenticado.")
+    return response
 
 @router.get("/entrar_recebido")
 def post_entrar_recebido(request: Request):
@@ -32,7 +29,51 @@ def post_entrar_recebido(request: Request):
 def get_entrar(request: Request):
     return templates.TemplateResponse("entrar.html", {"request": request})
 
-from datetime import datetime
+@router.post("/post_entrar")
+def post_entrar(
+    request: Request, 
+    email: str = Form(),
+    senha: str = Form()):
+    
+    banco_de_dados = BancoDeDados()  # Criação da instância
+    
+    senha_crpt = banco_de_dados.obter_senha_por_email(email)  # Usando a instância para chamar o método
+    
+    if not senha_crpt:
+        response = RedirectResponse("/entrar", 303)
+        return response
+    
+    if not bcrypt.checkpw(senha.encode(), senha_crpt.encode()):
+        response = RedirectResponse("/entrar", 303)
+        adicionar_mensagem_erro(response, "Credenciais inválidas!")
+        return response
+    
+    usuario = banco_de_dados.obter_dados_por_email(email)
+    
+    if not usuario:  # Verifica se o usuário existe
+        response = RedirectResponse("/entrar", 303)
+        adicionar_mensagem_erro(response, "Usuário não encontrado!")
+        return response
+    
+    request.session["usuario"] = {
+        "nome": usuario.nome,
+        "email": usuario.email, 
+        "tipo_usuario": usuario.tipo_usuario
+    }
+    
+    response = RedirectResponse("/", 303)
+    adicionar_mensagem_sucesso(response, f"Olá, <b>{usuario.nome}</b>. Você está autenticado!")
+    return response
+
+
+
+@router.get("/registrar")
+def get_registrar(request: Request):
+    return templates.TemplateResponse("registrar.html", {"request": request})
+
+@router.get("/registrar_recebido")
+def post_registrar_recebido(request: Request):
+    return templates.TemplateResponse("registrar_recebido.html", {"request": request})
 
 @router.post("/post_registrar")
 def post_registrar(
@@ -46,17 +87,15 @@ def post_registrar(
     senha: str = Form(...),
     confirmacao_senha: str = Form(...),
 ):
-    # Validações básicas
     if senha != confirmacao_senha:
-        return RedirectResponse("/registrar", status_code=303)
+        response = RedirectResponse("/registrar", 303)
+        adicionar_mensagem_erro(response, "Senha e confirmação de senha não conferem.")
+        return response
 
-    
-    # Criptografar a senha
-    senha_hash = cript(senha)
-    if isinstance(senha_hash, bytes):
-        senha_hash = senha_hash.decode()
-
-    # Criar o objeto Usuario
+    senha_crpt = cript(senha)
+    if isinstance(senha_crpt, bytes):
+        senha_crpt = senha_crpt.decode()
+        
     novo_usuario = Usuario(
         id=None, 
         nome=nome,
@@ -65,16 +104,16 @@ def post_registrar(
         cpf=cpf,
         telefone=telefone,
         endereco=endereco,
-        senha=senha_hash,
+        senha=senha_crpt,
         tipo_usuario="cliente"
     )
-
-
     if novo_usuario:
         response = RedirectResponse("/entrar", 303)
+        adicionar_mensagem_sucesso(response, "Cadastro realizado com sucesso! Use suas credenciais para entrar.")
         return response
     else:
         response = RedirectResponse("/registrar", 303)
+        adicionar_mensagem_erro(response, "Ocorreu algum problema ao tentar realizar seu cadastro. Tente novamente.")
         return response
 
 

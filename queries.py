@@ -33,13 +33,36 @@ SELECT * FROM usuario
 WHERE email = ? AND senha = ?
 """
 
-ALTERAR_NOME = """
+SQL_ALTERAR_NOME = """
 UPDATE usuario
 SET nome = ?
 WHERE email = ?;
 """
 
-DELETAR_USER = """
+SQL_DELETAR_USER = """
 DELETE FROM usuario
 WHERE email = ?;
+"""
+
+
+
+
+
+
+
+
+
+
+
+#foda
+SQL_OBTER_SENHA_POR_EMAIL = """
+        SELECT senha
+        FROM usuario
+        WHERE email = ?
+    """
+    
+SQL_OBTER_DADOS_POR_EMAIL = """
+    SELECT id, nome, email, tipo_usuario
+    FROM usuario
+    WHERE email = ?
 """

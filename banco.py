@@ -1,10 +1,21 @@
 from dataclasses import dataclass
 from typing import Optional
 import sqlite3
+from queries import * 
+from utils.cript import *  
 
-from sqlalchemy import Null
-from queries import *  # Certifique-se de que as queries estão importadas corretamente
-from utils.cript import *  # Certifique-se de que a função de criptografia está importada
+# SQL Queries
+SQL_OBTER_SENHA_POR_EMAIL = """
+    SELECT senha
+    FROM usuario
+    WHERE email = ?
+"""
+
+SQL_OBTER_DADOS_POR_EMAIL = """
+    SELECT id, nome, email, tipo_usuario
+    FROM usuario
+    WHERE email = ?
+"""
 
 @dataclass
 class Usuario:
@@ -27,6 +38,8 @@ class BancoDeDados:
     def conectar(self):
         try:
             self.conexao_banco = sqlite3.connect(self.path)
+            # Configura o uso de Row para acessar os resultados como dicionários
+            self.conexao_banco.row_factory = sqlite3.Row
             self.cursor = self.conexao_banco.cursor()
         except Exception as inst:
             print(f"Erro ao conectar no banco de dados: {inst}")
@@ -36,7 +49,33 @@ class BancoDeDados:
             self.cursor.close()
         if self.conexao_banco:
             self.conexao_banco.close()
-            
+#########################################################################
+    def obter_senha_por_email(self, email: str) -> Optional[str]:
+        try:
+            self.conectar()
+            self.cursor.execute(SQL_OBTER_SENHA_POR_EMAIL, (email,))
+            dados = self.cursor.fetchone() 
+            if dados is None:
+                return None
+            return dados["senha"]  # Acessa os dados como dicionário
+        except Exception as inst:
+            print(f'Erro ao obter senha do banco de dados: {inst}')
+        finally:
+            self.desconectar()
+
+    def obter_dados_por_email(self, email: str) -> Optional[Usuario]:
+        try:
+            self.conectar()
+            self.cursor.execute(SQL_OBTER_DADOS_POR_EMAIL, (email,))
+            dados = self.cursor.fetchone()  # Já pega os dados da primeira chamada
+            if dados is None:
+                return None
+            return Usuario(**dados)  # Cria o objeto Usuario com os dados
+        except Exception as inst:
+            print(f'Erro ao obter dados do banco de dados: {inst}')
+        finally:
+            self.desconectar()
+    ###################################################################    
     def criar_banco(self):
         try:
             self.conectar()
@@ -89,6 +128,9 @@ class BancoDeDados:
             print(f'Erro ao dropar tabela no banco de dados: {inst}')  
         finally:
             self.desconectar()
+
+
+
 """
 usuarios_para_teste = [
     Usuario(
