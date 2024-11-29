@@ -4,7 +4,7 @@ from utils.cript import *
 from fastapi import APIRouter, Form, Request, Depends
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from banco import * 
+from database.banco import * 
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
@@ -18,19 +18,16 @@ def get_root(request: Request):
 def get_sair(request: Request):
     request.session.clear()
     response = RedirectResponse("/", 303)
-    adicionar_mensagem_info(response, "Você não está mais autenticado.")
+    msg_info(response, "Você não está mais autenticado.")
     return response
 
-@router.get("/entrar_recebido")
-def post_entrar_recebido(request: Request):
-    return templates.TemplateResponse("entrar_recebido.html", {"request": request})
 
-@router.get("/entrar")
-def get_entrar(request: Request):
-    return templates.TemplateResponse("entrar.html", {"request": request})
+@router.get("/login")
+def get_login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
-@router.post("/post_entrar")
-def post_entrar(
+@router.post("/post_login")
+def post_login(
     request: Request, 
     email: str = Form(),
     senha: str = Form()):
@@ -40,19 +37,19 @@ def post_entrar(
     senha_crpt = banco_de_dados.obter_senha_por_email(email)  # Usando a instância para chamar o método
     
     if not senha_crpt:
-        response = RedirectResponse("/entrar", 303)
+        response = RedirectResponse("/login", 303)
         return response
     
     if not bcrypt.checkpw(senha.encode(), senha_crpt.encode()):
-        response = RedirectResponse("/entrar", 303)
-        adicionar_mensagem_erro(response, "Credenciais inválidas!")
+        response = RedirectResponse("/login", 303)
+        msg_erro(response, "Credenciais inválidas!")
         return response
     
     usuario = banco_de_dados.obter_dados_por_email(email)
     
     if not usuario:  # Verifica se o usuário existe
-        response = RedirectResponse("/entrar", 303)
-        adicionar_mensagem_erro(response, "Usuário não encontrado!")
+        response = RedirectResponse("/login", 303)
+        msg_erro(response, "Usuário não encontrado!")
         return response
     
     request.session["usuario"] = {
@@ -62,21 +59,21 @@ def post_entrar(
     }
     
     response = RedirectResponse("/", 303)
-    adicionar_mensagem_sucesso(response, f"Olá, <b>{usuario.nome}</b>. Você está autenticado!")
+    msg_sucesso(response, f"Olá, <b>{usuario.nome}</b>. Você está autenticado!")
     return response
 
 
 
-@router.get("/registrar")
-def get_registrar(request: Request):
-    return templates.TemplateResponse("registrar.html", {"request": request})
+@router.get("/cadastrar")
+def get_cadastrar(request: Request):
+    return templates.TemplateResponse("cadastrar.html", {"request": request})
 
-@router.get("/registrar_recebido")
-def post_registrar_recebido(request: Request):
-    return templates.TemplateResponse("registrar_recebido.html", {"request": request})
+@router.get("/cadastrar_recebido")
+def post_cadastrar_recebido(request: Request):
+    return templates.TemplateResponse("cadastrar_recebido.html", {"request": request})
 
-@router.post("/post_registrar")
-def post_registrar(
+@router.post("/post_cadastrar")
+def post_cadastrar(
     request: Request,
     nome: str = Form(...),
     data_nascimento: date = Form(...),
@@ -88,8 +85,8 @@ def post_registrar(
     confirmacao_senha: str = Form(...),
 ):
     if senha != confirmacao_senha:
-        response = RedirectResponse("/registrar", 303)
-        adicionar_mensagem_erro(response, "Senha e confirmação de senha não conferem.")
+        response = RedirectResponse("/cadastrar", 303)
+        msg_erro(response, "Senha e confirmação de senha não conferem.")
         return response
 
     senha_crpt = cript(senha)
@@ -108,12 +105,12 @@ def post_registrar(
         tipo_usuario="cliente"
     )
     if novo_usuario:
-        response = RedirectResponse("/entrar", 303)
-        adicionar_mensagem_sucesso(response, "Cadastro realizado com sucesso! Use suas credenciais para entrar.")
+        response = RedirectResponse("/login", 303)
+        msg_sucesso(response, "Cadastro realizado com sucesso! Use suas credenciais para login.")
         return response
     else:
-        response = RedirectResponse("/registrar", 303)
-        adicionar_mensagem_erro(response, "Ocorreu algum problema ao tentar realizar seu cadastro. Tente novamente.")
+        response = RedirectResponse("/cadastrar", 303)
+        msg_erro(response, "Ocorreu algum problema ao tentar realizar seu cadastro. Tente novamente.")
         return response
 
 

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from banco import * 
+from database.banco import * 
 from starlette.middleware.sessions import SessionMiddleware
 from routes.public_router import router as public_router
 
@@ -12,11 +12,3 @@ app.add_middleware(SessionMiddleware,
 secret_key="a4cc060da26e3251a72b73e241147adb7e050ac6b979911370744fb6ebbd16d46f420e480b83480f7242347f02688eda8712a7121c4611dc8743d17c607c7589")
 app.include_router(public_router)
 
-from fastapi import HTTPException, Request
-
-
-async def checar_autenticacao(request: Request, call_next):
-    if "usuario" not in request.session:
-        raise HTTPException(status_code=401, detail="Não autenticado")
-    response = await call_next(request)
-    return response

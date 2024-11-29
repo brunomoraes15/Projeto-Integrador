@@ -1,4 +1,4 @@
-def adicionar_mensagem(response, mensagem, tipo):
+def add_msg(response, mensagem, tipo):
     response.set_cookie(
         key=f"mensagem_{tipo}",
         value=mensagem,
@@ -7,14 +7,14 @@ def adicionar_mensagem(response, mensagem, tipo):
         samesite="strict",
     )
 
-def adicionar_mensagem_sucesso(response, mensagem):
-    adicionar_mensagem(response, mensagem, "sucesso")
+def msg_sucesso(response, mensagem):
+    add_msg(response, mensagem, "sucesso")
 
-def adicionar_mensagem_info(response, mensagem):
-    adicionar_mensagem(response, mensagem, "info")
+def msg_info(response, mensagem):
+    add_msg(response, mensagem, "info")
 
-def adicionar_mensagem_aviso(response, mensagem):
-    adicionar_mensagem(response, mensagem, "aviso")
+def msg_aviso(response, mensagem):
+    add_msg(response, mensagem, "aviso")
 
-def adicionar_mensagem_erro(response, mensagem):
-    adicionar_mensagem(response, mensagem, "erro")
+def msg_erro(response, mensagem):
+    add_msg(response, mensagem, "erro")
