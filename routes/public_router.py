@@ -114,9 +114,10 @@ def post_cadastrar(
         return response
 
 
-@router.get("/mapa")
-def get_root(request: Request):
-    return templates.TemplateResponse("mapa.html", {"request": request})
+@router.get("/instituicoes")
+def get_instituicoes_mapa(request: Request):
+    contexto = {"request": request, "instituicoes_ativo": "active"}
+    return templates.TemplateResponse("mapa.html", contexto)
 
 @router.get("/agenda")
 def get_root(request: Request):
