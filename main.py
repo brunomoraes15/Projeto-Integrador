@@ -4,6 +4,7 @@ from database.banco import *
 from starlette.middleware.sessions import SessionMiddleware
 from routes.public_router import router as public_router
 
+
 bd = BancoDeDados()
 bd.criar_banco()
 app = FastAPI()
