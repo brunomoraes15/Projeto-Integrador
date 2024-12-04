@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link href="static/css/estilos.css" rel="stylesheet">
+{% endblock %}
+
+{% block titulo %}Lista de Check-Ups{% endblock %}
+{% block conteudo %}
+
+<div class="container my-4">
+    <h1 class="mb-4">Check-Ups</h1>
+    <p>Seus pacientes o aguardam!</p>
+    <div class="row">
+        {% for id, nome in checkups_id.items() %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">CONSULTA N° {{ id }}</h5> <!-- Formatação do ID do Checkup -->
+                    <p class="card-text text-muted">Nome do Paciente: {{ nome }}</p>
+                    <a href="/paciente/{{ id }}" class="btn btn-primary">Analisar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

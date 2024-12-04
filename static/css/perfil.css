@@ -1,0 +1,181 @@
+/* Perfil */
+body.thumb {
+    transform: scale(0.9);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+main {
+    min-height: 80vh;
+}
+
+[class*='container'] {
+    background-clip: content-box;
+    background-color: transparent !important; /* Remover fundo */
+}
+
+.row [class*='col']:not(.row.row-cols-1.row-cols-md-3) {
+    background-color: transparent !important; /* Remover fundo */
+}
+
+/* Remover fundo de colunas específicas */
+.container .row .col-md-4, .container .row .col-md-8 {
+    background-color: transparent !important; /* Remover fundo */
+}
+
+/* Estilo de links de navegação */
+.nav-link {
+    color: #2845a1;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+}
+
+.nav-link.active .bi {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    background-color: #007bff;
+    outline: none;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.bi {
+    color: #015ec2;
+}
+
+.nav-link:hover .bi {
+    color: #ffffff;
+}
+
+/* Estilo de dropdown */
+.dropdown-menu {
+    background-color: #2845a1;
+    border: none;
+}
+
+.dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: hsl(215, 98%, 26%);
+    color: #ffffff;
+}
+
+.dropdown-divider {
+    border-color: #001046;
+}
+
+/* Carrossel */
+.carousel {
+    width: 74%;
+    max-width: 100%;
+    margin: auto;
+}
+
+.carousel-img {
+    height: auto;
+    object-fit: cover;
+}
+
+/* Títulos e textos */
+.titulo-centro {
+    text-align: center;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: auto;
+    right: 0;
+    z-index: 2000;
+}
+
+/* Estilo para imagens */
+.img-custom {
+    width: 50%;
+}
+
+@media (max-width: 767px) {
+    .img-custom {
+        width: 75% !important;
+    }
+}
+
+/* Perfil */
+.container .row {
+    margin-top: 30px;
+}
+
+.container .row .col-md-4 {
+    text-align: center;
+}
+
+.container .row .col-md-4 img {
+    border: 2px solid #efefef;
+    border-radius: 50%;
+}
+
+.container .row .col-md-4 h3 {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.container .row .col-md-4 p {
+    color: #6c757d;
+}
+
+.container .row .col-md-4 .btn {
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.container .row .col-md-8 table {
+    margin-top: 20px;
+}
+
+.container .row .col-md-8 table th {
+    width: 40%;
+}
+
+.container .row .col-md-8 table td {
+    width: 60%;
+    color: #555;
+}
+
+/* Estilo de Modal */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #2845a1;
+    color: white;
+    font-weight: bold;
+}
+
+.modal-body {
+    font-size: 1.1rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #ddd;
+}
+
+.modal-footer .btn-secondary,
+.modal-footer .btn-danger {
+    font-weight: bold;
+}

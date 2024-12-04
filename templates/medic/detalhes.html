@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link href="static/css/estilos.css" rel="stylesheet">
+{% endblock %}
+
+{% block titulo %}Detalhes do Checkup{% endblock %}
+
+{% block conteudo %}
+    {% if checkup %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>Detalhes do Checkup</h2>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">ID:</dt>
+                <dd class="col-sm-8">{{ checkup.id }}</dd>
+
+                <dt class="col-sm-4">Nome do Paciente:</dt>
+                <dd class="col-sm-8">{{ checkup.nome_usuario }}</dd>
+
+        
+                    <table class="table table-striped table-bordered mt-4">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Sintoma</th>
+                                <th>Sim</th>
+                                <th>Não</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Febre</td>
+                                <td>{{ "Sim" if checkup.febre else "" }}</td>
+                                <td>{{ "Não" if not checkup.febre else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Dor de Cabeça</td>
+                                <td>{{ "Sim" if checkup.dorCabeca else "" }}</td>
+                                <td>{{ "Não" if not checkup.dorCabeca else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Fadiga</td>
+                                <td>{{ "Sim" if checkup.fadiga else "" }}</td>
+                                <td>{{ "Não" if not checkup.fadiga else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Falta de Ar</td>
+                                <td>{{ "Sim" if checkup.faltaAr else "" }}</td>
+                                <td>{{ "Não" if not checkup.faltaAr else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Palpitações</td>
+                                <td>{{ "Sim" if checkup.palpitacoes else "" }}</td>
+                                <td>{{ "Não" if not checkup.palpitacoes else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tontura</td>
+                                <td>{{ "Sim" if checkup.tontura else "" }}</td>
+                                <td>{{ "Não" if not checkup.tontura else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Perda de Apetite</td>
+                                <td>{{ "Sim" if checkup.perdaApetite else "" }}</td>
+                                <td>{{ "Não" if not checkup.perdaApetite else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Náusea</td>
+                                <td>{{ "Sim" if checkup.nausea else "" }}</td>
+                                <td>{{ "Não" if not checkup.nausea else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Vômito</td>
+                                <td>{{ "Sim" if checkup.vomito else "" }}</td>
+                                <td>{{ "Não" if not checkup.vomito else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Perda de Peso</td>
+                                <td>{{ "Sim" if checkup.perdaPeso else "" }}</td>
+                                <td>{{ "Não" if not checkup.perdaPeso else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Dor Abdominal</td>
+                                <td>{{ "Sim" if checkup.dorAbdomen else "" }}</td>
+                                <td>{{ "Não" if not checkup.dorAbdomen else "" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tosse</td>
+                                <td>{{ "Sim" if checkup.tosse else "" }}</td>
+                                <td>{{ "Não" if not checkup.tosse else "" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </dd>
+
+                <dt class="col-sm-4">Descrição dos Sintomas:</dt>
+                <dd class="col-sm-8">{{ checkup.descricaoSintomas }}</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <form action="/post_check_medico" method="post">
+                <div class="form-group">
+                    <label for="diagnostico">Diagnóstico Preliminar Médico:</label>
+                    <textarea 
+                        class="form-control" 
+                        name="diagnostico" 
+                        rows="4" 
+                        placeholder="Digite suas observações aqui..."></textarea>
+                </div>
+                <input type="hidden" name="checkup_id" value="{{ checkup.id }}">
+                <button type="submit" class="btn btn-success mt-3">Enviar Observações</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        Check-up não encontrado.
+    </div>
+    {% endif %}
+{% endblock %}

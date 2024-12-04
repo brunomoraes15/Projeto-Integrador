@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+
+{% block titulo %} Sobre Nós {% endblock %}
+{% block conteudo %}
+
+<h2 class="text-center">Créditos</h2>
+<div class="text-center">
+    <br>
+    <h1>OBRIGADO PELA ATENÇÃO</h1>
+    <hr>
+    <p class="text-center">
+        Em uma jornada que vai além de linhas de código e prazos de entrega, quatro programadores se uniram para criar o SUSNET. 
+        Com habilidades que vão de algoritmos complexos a um coração apaixonado pela inovação, esses entusiastas da programação transformaram sonhos em realidade. 
+        Cada um, com sua própria expertise, contribui para um objetivo comum: desenvolver um projeto integrador focado na saúde pública por meio da tecnologia. 
+        Juntos, eles são a verdadeira definição de trabalho em equipe, empenho e a busca constante por um futuro melhor para a humanidade, sempre com o olhar voltado para o progresso.
+    </p>
+    <h3 class="mt-4">Membros do Grupo</h3>
+    <div class="row justify-content-center mt-3">
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card m-2">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Bruno Moraes</h5>
+                    <p class="card-text text-center">Apreciador de Guaravita</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card m-2">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Alex Lamonato</h5>
+                    <p class="card-text text-center">Pro Player de Yu-Gi-Oh!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card m-2">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Pedro Gabriel</h5>
+                    <p class="card-text text-center">Costuma ler bastante</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card m-2">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Eduardo Almeida</h5>
+                    <p class="card-text text-center">Entusiasta de jogos de sobrevivência</p>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+{% block css %}
+<style>
+    .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-body {
+        text-align: center;
+    }
+
+    @media (max-width: 576px) {
+        .card {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% endblock %}
