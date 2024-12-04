@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block titulo %}Mapa com Locais Próximos{% endblock %}
+<<<<<<< HEAD
 
 {% block css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -76,6 +77,67 @@
     var map = L.map('map').setView([0, 0], 13);
     var markersLayer = new L.LayerGroup().addTo(map);
     var userMarker = null;
+=======
+
+{% block css %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-search/dist/leaflet-search.css" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #map {
+            height: calc(100vh - 56px);
+            width: 100%;
+        }
+
+        #locationsList {
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block conteudo %}
+    <!-- Pop-up de mensagem -->
+    {% if mensagem %}
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+        <div class="toast align-items-center text-bg-{{ estilo }} border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-{{ icone }} me-2"></i>
+                    {{ mensagem|safe }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Mapa -->
+    <div id="map"></div>
+    <div id="locationsList"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-search/dist/leaflet-search.js"></script>
+    <script>
+        var map = L.map('map').setView([0, 0], 13);
+        var markersLayer = new L.LayerGroup().addTo(map);
+        var userMarker = null;
+>>>>>>> 7b1c24799044d7d8b2ae4953f9ebfc7f52ea5ffb
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -168,6 +230,10 @@
             locationsList.style.display = 'none';
             toggleButton.textContent = 'Mostrar Locais';
         }
+<<<<<<< HEAD
     }
 </script>
+=======
+    </script>
+>>>>>>> 7b1c24799044d7d8b2ae4953f9ebfc7f52ea5ffb
 {% endblock %}
